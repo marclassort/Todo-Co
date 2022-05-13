@@ -10,12 +10,12 @@ use Twig\Environment;
 
 class SecurityController extends AbstractController
 {
-    // private $twig;
+    private $twig;
 
-    // public function __construct(Environment $twig)
-    // {
-    //     $this->twig = $twig;
-    // }
+    public function __construct(Environment $twig)
+    {
+        $this->twig = $twig;
+    }
 
     /**
      * @Route("/login", name="login")
