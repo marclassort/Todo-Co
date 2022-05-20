@@ -20,6 +20,14 @@ class TaskController extends AbstractController
     }
 
     /**
+     * @Route("/finished-tasks", name="finished_task_list")
+     */
+    public function listFinishedTasks(EntityManagerInterface $em)
+    {
+        return $this->render('task/list.html.twig', ['tasks' => $em->getRepository(Task::class)->findByIsDone(1)]);
+    }
+
+    /**
      * @Route("/tasks/create", name="task_create")
      */
     public function createAction(Request $request, EntityManagerInterface $em)
@@ -29,7 +37,7 @@ class TaskController extends AbstractController
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($task);
             $em->flush();
 
@@ -44,13 +52,15 @@ class TaskController extends AbstractController
     /**
      * @Route("/tasks/{id}/edit", name="task_edit")
      */
-    public function editAction(Task $task, Request $request, EntityManagerInterface $em)
+    public function editAction(int $id, Request $request, EntityManagerInterface $em)
     {
+        $task = $em->getRepository(Task::class)->find($id);
+
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
 
             $this->addFlash('success', 'La tâche a bien été modifiée.');
@@ -67,8 +77,10 @@ class TaskController extends AbstractController
     /**
      * @Route("/tasks/{id}/toggle", name="task_toggle")
      */
-    public function toggleTaskAction(Task $task, EntityManagerInterface $em)
+    public function toggleTaskAction($id, EntityManagerInterface $em)
     {
+        $task = $em->getRepository(Task::class)->find($id);
+
         $task->toggle(!$task->isDone());
         $em->flush();
 
@@ -80,8 +92,10 @@ class TaskController extends AbstractController
     /**
      * @Route("/tasks/{id}/delete", name="task_delete")
      */
-    public function deleteTaskAction(Task $task, EntityManagerInterface $em)
+    public function deleteTaskAction(int $id, Task $task, EntityManagerInterface $em)
     {
+        $task = $em->getRepository(Task::class)->find($id);
+
         $em->remove($task);
         $em->flush();
 

@@ -34,9 +34,15 @@ class SecurityController extends AbstractController
     /**
      * @Route("/login_check", name="login_check")
      */
-    public function loginCheck()
+    public function loginCheck(AuthenticationUtils $authenticationUtils)
     {
-        // This code is never executed.
+        $error = $authenticationUtils->getLastAuthenticationError();
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        return new Response($this->twig->render('security/login.html.twig', [
+            'last_username' => $lastUsername,
+            'error'         => $error
+        ]));
     }
 
     /**
