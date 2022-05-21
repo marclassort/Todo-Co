@@ -11,26 +11,20 @@ use Symfony\Component\HttpFoundation\Request;
 
 class TaskController extends AbstractController
 {
-    /**
-     * @Route("/tasks", name="task_list")
-     */
-    public function listAction(EntityManagerInterface $em)
+    #[Route('/tasks', name: 'task_list', methods: ['GET'])]
+    public function list(EntityManagerInterface $em)
     {
         return $this->render('task/list.html.twig', ['tasks' => $em->getRepository(Task::class)->findAll()]);
     }
 
-    /**
-     * @Route("/finished-tasks", name="finished_task_list")
-     */
+    #[Route('/finished-tasks', name: 'finished_task_list', methods: ['GET'])]
     public function listFinishedTasks(EntityManagerInterface $em)
     {
         return $this->render('task/list.html.twig', ['tasks' => $em->getRepository(Task::class)->findByIsDone(1)]);
     }
 
-    /**
-     * @Route("/tasks/create", name="task_create")
-     */
-    public function createAction(Request $request, EntityManagerInterface $em)
+    #[Route('/tasks/create', name: 'task_create', methods: ['GET', 'POST'])]
+    public function create(Request $request, EntityManagerInterface $em)
     {
         $task = new Task();
         $form = $this->createForm(TaskType::class, $task);
@@ -49,10 +43,8 @@ class TaskController extends AbstractController
         return $this->render('task/create.html.twig', ['form' => $form->createView()]);
     }
 
-    /**
-     * @Route("/tasks/{id}/edit", name="task_edit")
-     */
-    public function editAction(int $id, Request $request, EntityManagerInterface $em)
+    #[Route('/tasks/{id}/edit', name: 'task_edit', methods: ['GET', 'POST'])]
+    public function edit(int $id, Request $request, EntityManagerInterface $em)
     {
         $task = $em->getRepository(Task::class)->find($id);
 
@@ -74,10 +66,8 @@ class TaskController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/tasks/{id}/toggle", name="task_toggle")
-     */
-    public function toggleTaskAction($id, EntityManagerInterface $em)
+    #[Route('/tasks/{id}/toggle', name: 'task_toggle', methods: ['GET'])]
+    public function toggleTask($id, EntityManagerInterface $em)
     {
         $task = $em->getRepository(Task::class)->find($id);
 
@@ -89,10 +79,8 @@ class TaskController extends AbstractController
         return $this->redirectToRoute('task_list');
     }
 
-    /**
-     * @Route("/tasks/{id}/delete", name="task_delete")
-     */
-    public function deleteTaskAction(int $id, Task $task, EntityManagerInterface $em)
+    #[Route('/tasks/{id}/delete', name: 'task_delete', methods: ['GET'])]
+    public function deleteTask(int $id, Task $task, EntityManagerInterface $em)
     {
         $task = $em->getRepository(Task::class)->find($id);
 

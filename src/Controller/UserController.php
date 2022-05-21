@@ -12,18 +12,14 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserController extends AbstractController
 {
-    /**
-     * @Route("/users", name="user_list")
-     */
-    public function listAction(EntityManagerInterface $em)
+    #[Route('/users', name: 'user_list', methods: ['GET'])]
+    public function list(EntityManagerInterface $em)
     {
         return $this->render('user/list.html.twig', ['users' => $em->getRepository(User::class)->findAll()]);
     }
 
-    /**
-     * @Route("/users/create", name="user_create")
-     */
-    public function createAction(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher)
+    #[Route('/users/create', name: 'user_create', methods: ['GET', 'POST'])]
+    public function create(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher)
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -48,10 +44,8 @@ class UserController extends AbstractController
         return $this->render('user/create.html.twig', ['form' => $form->createView()]);
     }
 
-    /**
-     * @Route("/users/{id}/edit", name="user_edit")
-     */
-    public function editAction(int $id, Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher)
+    #[Route('/users/{id}/edit', name: 'user_edit', methods: ['GET', 'POST'])]
+    public function edit(int $id, Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher)
     {
         $user = $em->getRepository(User::class)->find($id);
 
