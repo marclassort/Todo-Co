@@ -17,7 +17,7 @@ class SecurityController extends AbstractController
         $this->twig = $twig;
     }
 
-    #[Route('/login', name: 'login', methods: ['GET'])]
+    #[Route('/login', name: 'login', methods: ['GET', 'POST'])]
     public function login(AuthenticationUtils $authenticationUtils)
     {
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -29,7 +29,7 @@ class SecurityController extends AbstractController
         ]));
     }
 
-    #[Route('/login_check', name: 'login_check', methods: ['GET'])]
+    #[Route('/login_check', name: 'login_check', methods: ['GET', 'POST'])]
     public function loginCheck(AuthenticationUtils $authenticationUtils)
     {
         $error = $authenticationUtils->getLastAuthenticationError();

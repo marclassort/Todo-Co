@@ -15,6 +15,8 @@ class UserController extends AbstractController
     #[Route('/users', name: 'user_list', methods: ['GET'])]
     public function list(EntityManagerInterface $em)
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         return $this->render('user/list.html.twig', ['users' => $em->getRepository(User::class)->findAll()]);
     }
 
@@ -32,6 +34,8 @@ class UserController extends AbstractController
                 $user->getPassword()
             );
             $user->setPassword($hashedPassword);
+            $roles = $user->getRoles();
+            $user->setRoles($roles);
 
             $em->persist($user);
             $em->flush();
@@ -59,6 +63,8 @@ class UserController extends AbstractController
                 $user->getPassword()
             );
             $user->setPassword($hashedPassword);
+            $roles = $user->getRoles();
+            $user->setRoles($roles);
 
             $em->flush();
 
