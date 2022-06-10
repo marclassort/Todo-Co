@@ -37,12 +37,8 @@ class UserType extends AbstractType
 
         $builder->get('roles')
             ->addModelTransformer(new CallbackTransformer(
-                function ($rolesArray) {
-                    return count($rolesArray) ? $rolesArray[0] : null;
-                },
-                function ($rolesString) {
-                    return [$rolesString];
-                }
+                fn ($rolesAsArray) => count($rolesAsArray) ? $rolesAsArray[0] : null,
+                fn ($rolesAsString) => [$rolesAsString]
             ));
     }
 }
