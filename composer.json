@@ -40,7 +40,9 @@
         "symfony/yaml": "^6.0",
         "twig/extra-bundle": "^3.3",
         "twig/intl-extra": "^3.3",
-        "twig/markdown-extra": "^3.3"
+        "twig/markdown-extra": "^3.3",
+        "phpunit/phpunit": "^9.5",
+        "liip/test-fixtures-bundle": "^2.4"
     },
     "require-dev": {
         "dama/doctrine-test-bundle": "^7.0",
