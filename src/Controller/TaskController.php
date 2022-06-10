@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Task;
+use App\Entity\User;
 use App\Form\TaskType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,7 +15,15 @@ class TaskController extends AbstractController
     #[Route('/tasks', name: 'task_list', methods: ['GET'])]
     public function list(EntityManagerInterface $em)
     {
-        return $this->render('task/list.html.twig', ['tasks' => $em->getRepository(Task::class)->findAll()]);
+        $user = $this->getUser();
+
+        return $this->render(
+            'task/list.html.twig',
+            [
+                'tasks' => $em->getRepository(Task::class)->findAll(),
+                'user' => $user
+            ]
+        );
     }
 
     #[Route('/finished-tasks', name: 'finished_task_list', methods: ['GET'])]
@@ -32,6 +41,8 @@ class TaskController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $task->setAuthor($this->getUser());
+
             $em->persist($task);
             $em->flush();
 
@@ -53,6 +64,11 @@ class TaskController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($task->getAuthor() == null) {
+                $user = $em->getRepository(User::class)->findByUsername('anonyme');
+                $task->setAuthor($user);
+            }
+
             $em->flush();
 
             $this->addFlash('success', 'La tâche a bien été modifiée.');
