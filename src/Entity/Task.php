@@ -26,6 +26,7 @@ class Task
     private $content;
 
     #[ORM\Column(type: 'boolean')]
+    #[Assert\NotNull]
     private $isDone;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'tasks')]

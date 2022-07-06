@@ -513,6 +513,9 @@
     "symfony/property-info": {
         "version": "v6.0.7"
     },
+    "symfony/proxy-manager-bridge": {
+        "version": "v6.1.0"
+    },
     "symfony/routing": {
         "version": "6.0",
         "recipe": {

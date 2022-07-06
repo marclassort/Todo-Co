@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "897ad605f3df24b4742981285c6d9816",
+    "content-hash": "08e75b9fa72849a3583cf591d680848d",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -7139,6 +7139,72 @@
             "time": "2022-03-31T17:18:25+00:00"
         },
         {
+            "name": "symfony/proxy-manager-bridge",
+            "version": "v6.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/proxy-manager-bridge.git",
+                "reference": "bcb3e7a28ee373bd64ecd2a2289a64c5860716af"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/proxy-manager-bridge/zipball/bcb3e7a28ee373bd64ecd2a2289a64c5860716af",
+                "reference": "bcb3e7a28ee373bd64ecd2a2289a64c5860716af",
+                "shasum": ""
+            },
+            "require": {
+                "friendsofphp/proxy-manager-lts": "^1.0.2",
+                "php": ">=8.1",
+                "symfony/dependency-injection": "^5.4|^6.0"
+            },
+            "require-dev": {
+                "symfony/config": "^5.4|^6.0"
+            },
+            "type": "symfony-bridge",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Bridge\\ProxyManager\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Provides integration for ProxyManager with various Symfony components",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/proxy-manager-bridge/tree/v6.1.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-03-02T13:21:45+00:00"
+        },
+        {
             "name": "symfony/routing",
             "version": "v6.0.8",
             "source": {
@@ -9551,20 +9617,20 @@
         },
         {
             "name": "dama/doctrine-test-bundle",
-            "version": "v7.0.0",
+            "version": "v7.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dmaicher/doctrine-test-bundle.git",
-                "reference": "d8cf740cb3d1c5425cbb58ff48dfb112543f9a97"
+                "reference": "1cf583f0557e0c73465cece646656bc3a0d7dd9e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dmaicher/doctrine-test-bundle/zipball/d8cf740cb3d1c5425cbb58ff48dfb112543f9a97",
-                "reference": "d8cf740cb3d1c5425cbb58ff48dfb112543f9a97",
+                "url": "https://api.github.com/repos/dmaicher/doctrine-test-bundle/zipball/1cf583f0557e0c73465cece646656bc3a0d7dd9e",
+                "reference": "1cf583f0557e0c73465cece646656bc3a0d7dd9e",
                 "shasum": ""
             },
             "require": {
-                "doctrine/dbal": "^3.0",
+                "doctrine/dbal": "^3.3",
                 "doctrine/doctrine-bundle": "^2.2.2",
                 "ext-json": "*",
                 "php": "^7.3 || ^8.0",
@@ -9612,9 +9678,9 @@
             ],
             "support": {
                 "issues": "https://github.com/dmaicher/doctrine-test-bundle/issues",
-                "source": "https://github.com/dmaicher/doctrine-test-bundle/tree/v7.0.0"
+                "source": "https://github.com/dmaicher/doctrine-test-bundle/tree/v7.1.0"
             },
-            "time": "2022-04-11T09:34:40+00:00"
+            "time": "2022-06-01T09:16:12+00:00"
         },
         {
             "name": "doctrine/data-fixtures",

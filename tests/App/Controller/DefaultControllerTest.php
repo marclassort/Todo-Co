@@ -2,6 +2,7 @@
 
 namespace Tests\App\Controller;
 
+use App\Entity\Task;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -14,7 +15,9 @@ class DefaultControllerTest extends WebTestCase
 
     public function setUp(): void
     {
-        $this->client = static::createClient();
+        $this->client = static::createClient([], [
+            'HTTP_HOST' => 'localhost:8000'
+        ]);
         $this->userRepository = $this->client->getContainer()->get('doctrine.orm.entity_manager')->getRepository(User::class);
         $this->user = $this->userRepository->findOneByUsername('anonyme');
         $this->urlGenerator = $this->client->getContainer()->get('router.default');
@@ -42,7 +45,7 @@ class DefaultControllerTest extends WebTestCase
     public function testLogoutIsUp()
     {
         $this->client->request(Request::METHOD_GET, $this->urlGenerator->generate('logout'));
-        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
     }
 
     public function testTaskListIsUp()
@@ -65,21 +68,38 @@ class DefaultControllerTest extends WebTestCase
 
     public function testEditTaskIsUp()
     {
-        $this->urlGenerator->setContext(array());
-        $this->client->request(Request::METHOD_GET, $this->urlGenerator->generate('task_edit'));
+        $entityManager = $this->client->getContainer()->get('doctrine.orm.entity_manager');
+        $task = $entityManager->getRepository(Task::class)->findOneBy([]);
+
+        $this->client->request(
+            Request::METHOD_GET,
+            $this->urlGenerator->generate('task_edit', ['id' => $task->getId()])
+        );
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
 
     public function testToggleTaskIsUp()
     {
-        $this->client->request(Request::METHOD_GET, $this->urlGenerator->generate('task_toggle'));
-        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $entityManager = $this->client->getContainer()->get('doctrine.orm.entity_manager');
+        $task = $entityManager->getRepository(Task::class)->findOneBy([]);
+
+        $this->client->request(
+            Request::METHOD_GET,
+            $this->urlGenerator->generate('task_toggle', ['id' => $task->getId()])
+        );
+        $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
     }
 
     public function testDeleteTaskIsUp()
     {
-        $this->client->request(Request::METHOD_GET, $this->urlGenerator->generate('task_delete'));
-        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $entityManager = $this->client->getContainer()->get('doctrine.orm.entity_manager');
+        $task = $entityManager->getRepository(Task::class)->findOneBy([]);
+
+        $this->client->request(
+            Request::METHOD_GET,
+            $this->urlGenerator->generate('task_delete', ['id' => $task->getId()])
+        );
+        $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
     }
 
     public function testUsersIsUp()
@@ -96,7 +116,13 @@ class DefaultControllerTest extends WebTestCase
 
     public function testEditUserIsUp()
     {
-        $this->client->request(Request::METHOD_GET, $this->urlGenerator->generate('user_edit'));
+        $entityManager = $this->client->getContainer()->get('doctrine.orm.entity_manager');
+        $user = $entityManager->getRepository(User::class)->findOneBy([]);
+
+        $this->client->request(
+            Request::METHOD_GET,
+            $this->urlGenerator->generate('user_edit', ['id' => $user->getId()])
+        );
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
 }

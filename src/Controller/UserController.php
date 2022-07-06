@@ -17,8 +17,6 @@ class UserController extends AbstractController
     #[IsGranted('ROLE_ADMIN')]
     public function list(EntityManagerInterface $em)
     {
-        // $this->denyAccessUnlessGranted('ROLE_ADMIN');
-
         return $this->render('user/list.html.twig', ['users' => $em->getRepository(User::class)->findAll()]);
     }
 
