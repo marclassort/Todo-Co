@@ -28,10 +28,10 @@ class UserControllerTest extends WebTestCase
         $crawler = $this->client->request(Request::METHOD_GET, $this->urlGenerator->generate('user_create'));
 
         $form = $crawler->selectButton('Ajouter')->form();
-        $form['user[username]'] = "anonyme3";
+        $form['user[username]'] = "anonyme2";
         $form['user[password][first]'] = "test";
         $form['user[password][second]'] = "test";
-        $form['user[email]'] = "test3@test.fr";
+        $form['user[email]'] = "anonyme2@test.fr";
         $form['user[roles]'] = "ROLE_ADMIN";
         $this->client->submit($form);
 
@@ -50,7 +50,7 @@ class UserControllerTest extends WebTestCase
         $this->assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
 
         $form = $crawler->selectButton('Se connecter')->form();
-        $form['_username'] = 'anonyme2';
+        $form['_username'] = 'anonyme';
         $form['_password'] = 'test';
         $this->client->submit($form);
 

@@ -27,7 +27,7 @@ class TaskControllerTest extends WebTestCase
         $this->assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
 
         $form = $crawler->selectButton('Se connecter')->form();
-        $form['_username'] = 'anonyme2';
+        $form['_username'] = 'anonyme';
         $form['_password'] = 'test';
         $this->client->submit($form);
 
@@ -39,7 +39,7 @@ class TaskControllerTest extends WebTestCase
         $crawler = $this->client->request(Request::METHOD_GET, $this->urlGenerator->generate('login'));
 
         $form = $crawler->selectButton('Se connecter')->form();
-        $form['_username'] = 'anonyme2';
+        $form['_username'] = 'anonyme';
         $form['_password'] = 'test';
         $this->client->submit($form);
 
@@ -62,7 +62,7 @@ class TaskControllerTest extends WebTestCase
         $crawler = $this->client->request(Request::METHOD_GET, $this->urlGenerator->generate('login'));
 
         $form = $crawler->selectButton('Se connecter')->form();
-        $form['_username'] = 'anonyme2';
+        $form['_username'] = 'anonyme';
         $form['_password'] = 'test';
         $this->client->submit($form);
 
