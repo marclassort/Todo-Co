@@ -20,11 +20,7 @@ Once these procedures are done, the project manager in connection with the senio
 
 During this project, the naming conventions must also be respected:
  
-* For CRUD (create, view, edit, delete) in the methods: 
-- createSomething() for creation
--readSomething() for consultation
-- updateSomething() for edition
-- deleteSomething() for deletion
+* For CRUD (create, view, edit, delete) in the methods: createSomething() for creation, readSomething() for consultation, updateSomething() for edition, deleteSomething() for deletion
 * Class constants must be named in ALL_CAPS ;
 * Classes and interfaces must be named following the PascalCase ;
 * Finally, functions, methods and variables must follow the camelCase rule. 
@@ -35,7 +31,7 @@ It is also necessary to respect the new rules of PHP 8, by not using annotations
 * Open the brackets by returning to the line for the functions
 * Open the brackets without returning to the line for if & else statements
 * Do not exceed 80 characters per line, and return to the line in the case of parameters of a function, in case of length, for all the lines of an array for example
-* Do not close the <?php tag if there is only PHP code
+* Do not close the `<?php` tag if there is only PHP code
 * Add a space after the namespace declaration
 * Declare visibility on all properties and functions (public, private, etc.)
 
@@ -43,4 +39,4 @@ It is also necessary to respect the new rules of PHP 8, by not using annotations
 * Install PHPUNit: `composer require phpunit/phpunit`
 * Write functional tests in *tests\App\Controller* and unitary tests in *tests\App\Entity*
 * Run tests: `vendor/bin/phpunit`
-* Run code coverage tests and reports: vendor/bin/phpunit --coverage-html web/code-coverage
+* Run code coverage tests and reports: `vendor/bin/phpunit --coverage-html web/code-coverage`
