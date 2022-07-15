@@ -6,6 +6,7 @@ use App\Entity\Task;
 use App\Entity\User;
 use App\Form\TaskType;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,6 +34,7 @@ class TaskController extends AbstractController
     }
 
     #[Route('/tasks/create', name: 'task_create', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function create(Request $request, EntityManagerInterface $em)
     {
         $task = new Task();
@@ -55,6 +57,7 @@ class TaskController extends AbstractController
     }
 
     #[Route('/tasks/{id}/edit', name: 'task_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function edit(int $id, Request $request, EntityManagerInterface $em)
     {
         $task = $em->getRepository(Task::class)->find($id);
@@ -83,6 +86,7 @@ class TaskController extends AbstractController
     }
 
     #[Route('/tasks/{id}/toggle', name: 'task_toggle', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function toggleTask($id, EntityManagerInterface $em)
     {
         $task = $em->getRepository(Task::class)->find($id);
@@ -96,6 +100,7 @@ class TaskController extends AbstractController
     }
 
     #[Route('/tasks/{id}/delete', name: 'task_delete', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function deleteTask(int $id, Task $task, EntityManagerInterface $em)
     {
         $task = $em->getRepository(Task::class)->find($id);
